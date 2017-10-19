@@ -14,6 +14,7 @@ namespace twozerofoureight
     {
         Model model;
         Controller controller;
+        int Output_Scores = 0;
        
         public TwoZeroFourEightView()
         {
@@ -35,6 +36,7 @@ namespace twozerofoureight
             if (i != 0)
             {
                 l.Text = Convert.ToString(i);
+                UpdateScore(i);
             } else {
                 l.Text = "";
             }
@@ -57,6 +59,13 @@ namespace twozerofoureight
                     break;
             }
         }
+
+        public void UpdateScore( int Score)
+        {
+            Output_Scores += Score;
+            Score_Point.Text = Output_Scores.ToString();
+        }
+
         private void UpdateBoard(int[,] board)
         {
             UpdateTile(lbl00,board[0, 0]);
@@ -75,6 +84,7 @@ namespace twozerofoureight
             UpdateTile(lbl31,board[3, 1]);
             UpdateTile(lbl32,board[3, 2]);
             UpdateTile(lbl33,board[3, 3]);
+            Output_Scores = 0;
         }
 
         private void btnLeft_Click(object sender, EventArgs e)
@@ -96,6 +106,30 @@ namespace twozerofoureight
         {
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
+
+
+
+        private void ArrowKeyClick(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyValue)
+            {
+                case 37:
+                    controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+
+                    break;
+                case 38:
+                    controller.ActionPerformed(TwoZeroFourEightController.UP);
+                    break;
+                case 39:
+                    controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+                    break;
+                case 40:
+                    controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+                    break;
+            }
+        }
+
+
 
     }
 }
